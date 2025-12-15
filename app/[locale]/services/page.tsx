@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
-import { Code, Palette, Zap, Shield, Sparkles, ArrowRight } from 'lucide-react';
+import { Code, Palette, Zap, Shield, Sparkles, ArrowRight, Workflow, TrendingUp } from 'lucide-react';
 import type { Metadata } from 'next';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -44,6 +44,7 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
         t('itConsulting.features.3'),
       ],
       icon: Zap,
+      gradient: 'from-yellow-500 to-orange-500',
       href: `/${locale}/services/it-consulting`,
     },
     {
@@ -56,6 +57,7 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
         t('webDevelopment.features.3'),
       ],
       icon: Code,
+      gradient: 'from-blue-500 to-cyan-500',
       href: `/${locale}/services/web-development`,
     },
     {
@@ -67,7 +69,8 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
         t('systemIntegration.features.2'),
         t('systemIntegration.features.3'),
       ],
-      icon: Shield,
+      icon: Workflow,
+      gradient: 'from-green-500 to-emerald-500',
       href: `/${locale}/services/system-integration`,
     },
     {
@@ -80,6 +83,7 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
         t('uiUx.features.3'),
       ],
       icon: Palette,
+      gradient: 'from-purple-500 to-pink-500',
       href: `/${locale}/services/ui-ux`,
     },
     {
@@ -91,7 +95,8 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
         t('digitalMarketing.features.2'),
         t('digitalMarketing.features.3'),
       ],
-      icon: Sparkles,
+      icon: TrendingUp,
+      gradient: 'from-red-500 to-rose-500',
       href: `/${locale}/services/digital-marketing`,
     },
   ];
@@ -99,13 +104,23 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
   return (
     <>
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-blue-50 via-white to-indigo-50 py-24 sm:py-32">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <section className="relative overflow-hidden bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 py-24 sm:py-32">
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-10"></div>
+          <div className="absolute top-20 left-10 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+          <div className="absolute top-40 right-10 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+        </div>
+
+        <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
-            <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+            <div className="mb-8 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-purple-500/10 px-4 py-1.5 text-sm font-semibold text-blue-400 ring-1 ring-inset ring-blue-400/30 backdrop-blur-sm">
+              <Sparkles className="h-4 w-4" />
+              <span>Our Expertise</span>
+            </div>
+            <h1 className="text-5xl font-bold tracking-tight text-white sm:text-6xl">
               {t('title')}
             </h1>
-            <p className="mt-6 text-xl leading-8 text-gray-600">
+            <p className="mt-6 text-xl leading-8 text-gray-300">
               {t('subtitle')}
             </p>
           </div>
@@ -113,44 +128,51 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
       </section>
 
       {/* Services Section */}
-      <section className="py-24 sm:py-32 bg-white">
+      <section className="py-24 sm:py-32 bg-gray-900">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="space-y-16">
+          <div className="space-y-24">
             {services.map((service, index) => (
               <div
                 key={service.name}
-                className={`flex flex-col gap-8 lg:flex-row lg:gap-16 ${
-                  index % 2 === 1 ? 'lg:flex-row-reverse' : ''
+                className={`group relative grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16 ${
+                  index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''
                 }`}
               >
-                <div className="flex-1">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-blue-600 mb-6">
-                    <service.icon className="h-6 w-6 text-white" />
+                {/* Content */}
+                <div className={`flex flex-col justify-center ${index % 2 === 1 ? 'lg:col-start-2' : ''}`}>
+                  <div className={`inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br ${service.gradient} shadow-xl shadow-${service.gradient.split('-')[1]}-500/50 mb-8`}>
+                    <service.icon className="h-8 w-8 text-white" />
                   </div>
-                  <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                  <h2 className="text-4xl font-bold text-white mb-6">
                     {service.name}
                   </h2>
-                  <p className="text-lg text-gray-600 mb-6">
+                  <p className="text-lg text-gray-300 mb-8 leading-relaxed">
                     {service.description}
                   </p>
                   <Link
                     href={service.href}
-                    className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-500 font-semibold transition-colors"
+                    className="group/link inline-flex items-center gap-2 text-lg font-semibold text-blue-400 hover:text-blue-300 transition-colors w-fit"
                   >
-                    Learn more <ArrowRight className="h-4 w-4" />
+                    Learn more
+                    <ArrowRight className="h-5 w-5 group-hover/link:translate-x-1 transition-transform" />
                   </Link>
                 </div>
-                <div className="flex-1">
-                  <ul className="space-y-4">
-                    {service.features.map((feature) => (
-                      <li key={feature} className="flex items-start gap-3">
-                        <div className="mt-1 flex h-5 w-5 items-center justify-center rounded-full bg-blue-100">
-                          <div className="h-2 w-2 rounded-full bg-blue-600"></div>
-                        </div>
-                        <span className="text-base text-gray-700">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
+
+                {/* Features */}
+                <div className={`flex flex-col ${index % 2 === 1 ? 'lg:col-start-1 lg:row-start-1' : ''}`}>
+                  <div className="rounded-3xl bg-gray-800/50 backdrop-blur-sm p-8 border border-gray-700 hover:border-gray-600 transition-all hover:shadow-xl hover:shadow-blue-500/10">
+                    <h3 className="text-xl font-semibold text-white mb-6">Key Features</h3>
+                    <ul className="space-y-4">
+                      {service.features.map((feature, idx) => (
+                        <li key={idx} className="flex items-start gap-4 group/item">
+                          <div className={`mt-1 flex h-6 w-6 items-center justify-center rounded-lg bg-gradient-to-br ${service.gradient} flex-shrink-0 group-hover/item:scale-110 transition-transform`}>
+                            <div className="h-2 w-2 rounded-full bg-white"></div>
+                          </div>
+                          <span className="text-base text-gray-300 leading-relaxed">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
               </div>
             ))}
@@ -159,10 +181,14 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
       </section>
 
       {/* CTA Section */}
-      <section className="bg-blue-600 py-16 sm:py-24">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <section className="relative isolate overflow-hidden bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 py-24 sm:py-32">
+        <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-10"></div>
+        <div className="absolute top-0 left-0 w-96 h-96 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+
+        <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            <h2 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
               Ready to get started?
             </h2>
             <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-blue-100">
@@ -171,9 +197,10 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <Link
                 href={`/${locale}/contact`}
-                className="rounded-md bg-white px-6 py-3 text-base font-semibold text-blue-600 shadow-sm hover:bg-gray-100 transition-all"
+                className="group relative inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-base font-semibold text-blue-600 shadow-2xl hover:bg-gray-50 transition-all duration-300 hover:scale-105"
               >
-                Contact Us
+                <span>Contact Us</span>
+                <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
           </div>
