@@ -1,4 +1,3 @@
-import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 import { Code, Palette, Zap, Shield, Sparkles, ArrowRight, Workflow, TrendingUp } from 'lucide-react';
@@ -31,7 +30,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default async function ServicesPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  const t = useTranslations('services');
+  const t = await getTranslations({ locale, namespace: 'services' });
 
   const services = [
     {

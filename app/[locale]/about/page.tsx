@@ -1,4 +1,3 @@
-import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import { Target, Eye, Award, Users, Zap, Shield, TrendingUp, Heart } from 'lucide-react';
 import type { Metadata } from 'next';
@@ -30,7 +29,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  const t = useTranslations('about');
+  const t = await getTranslations({ locale, namespace: 'about' });
 
   const values = [
     {
