@@ -146,3 +146,35 @@ body {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
+
+/* HubSpot Form Styling */
+.hubspot-form input,
+.hubspot-form textarea,
+.hubspot-form select {
+  @apply w-full rounded-lg border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50;
+}
+
+.hubspot-form label {
+  @apply text-sm font-semibold text-gray-300 mb-2 block;
+}
+
+.hubspot-form button[type="submit"],
+.hubspot-form input[type="submit"] {
+  @apply w-full rounded-full bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 px-8 py-3 text-base font-semibold text-white shadow-lg shadow-blue-500/50 hover:shadow-xl hover:shadow-blue-500/60 transition-all duration-300 hover:scale-105 cursor-pointer;
+}
+
+.hubspot-form .hs-error-msgs {
+  @apply text-red-400 text-sm mt-1;
+}
+
+.hubspot-form .hs-form-field {
+  @apply mb-4;
+}
+
+.hubspot-form .hs-input {
+  @apply w-full;
+}
+
+.hubspot-form .submitted-message {
+  @apply text-green-400 text-center p-4 rounded-lg bg-green-500/10 border border-green-500/30;
+}

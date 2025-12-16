@@ -1,6 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 import { Mail, MapPin, Clock } from 'lucide-react';
-import ContactForm from '@/components/ContactForm';
+import HubSpotForm from '@/components/HubSpotForm';
 import type { Metadata } from 'next';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -48,7 +48,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
             {/* Contact Form */}
             <div>
-              <ContactForm locale={locale} />
+              <HubSpotForm />
             </div>
 
             {/* Contact Information */}
