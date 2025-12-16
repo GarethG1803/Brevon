@@ -146,3 +146,57 @@ body {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
+
+/* HubSpot Form Styling */
+.hubspot-form-wrapper {
+  @apply space-y-4;
+}
+
+.hubspot-form-wrapper .hs-form {
+  @apply space-y-6;
+}
+
+.hubspot-form-wrapper .hs-form-field {
+  @apply space-y-2;
+}
+
+.hubspot-form-wrapper label {
+  @apply block text-sm font-semibold text-gray-300;
+}
+
+.hubspot-form-wrapper input[type="text"],
+.hubspot-form-wrapper input[type="email"],
+.hubspot-form-wrapper input[type="tel"],
+.hubspot-form-wrapper textarea,
+.hubspot-form-wrapper select {
+  @apply w-full rounded-lg bg-gray-800 border border-gray-700 px-4 py-3 text-white placeholder-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-colors;
+}
+
+.hubspot-form-wrapper textarea {
+  @apply resize-none;
+}
+
+.hubspot-form-wrapper input[type="submit"],
+.hubspot-form-wrapper button[type="submit"] {
+  @apply w-full rounded-full bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 px-8 py-4 text-base font-semibold text-white shadow-lg shadow-blue-500/50 hover:shadow-xl hover:shadow-blue-500/60 transition-all duration-300 hover:scale-105 cursor-pointer border-0;
+}
+
+.hubspot-form-wrapper .hs-error-msgs {
+  @apply mt-1;
+}
+
+.hubspot-form-wrapper .hs-error-msgs label {
+  @apply text-red-400 text-sm font-normal;
+}
+
+.hubspot-form-wrapper .submitted-message {
+  @apply rounded-lg bg-green-500/10 border border-green-500/20 px-4 py-3 text-green-400;
+}
+
+.hubspot-form-wrapper .hs-richtext {
+  @apply text-gray-300;
+}
+
+.hubspot-form-wrapper .legal-consent-container {
+  @apply text-gray-400 text-sm;
+}
