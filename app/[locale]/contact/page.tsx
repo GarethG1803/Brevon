@@ -48,7 +48,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
             {/* Contact Form */}
             <div>
-              <HubSpotForm />
+              <HubSpotForm locale={locale} />
             </div>
 
             {/* Contact Information */}
