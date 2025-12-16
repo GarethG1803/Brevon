@@ -24,15 +24,23 @@ export default function HubSpotForm({ locale }: { locale: string }) {
           formId: "2f8dc52a-84bc-44bf-913d-8e713c553b34",
           region: "na2",
           target: '#hubspot-form-container',
-          onFormSubmitted: function() {
+          inlineMessage: ' ', // Prevent default success message and form hiding
+          onFormSubmitted: function($form: any) {
             // Show modal on successful submission
             setShowModal(true);
 
-            // Hide the default HubSpot success message
-            const successMessage = document.querySelector('.submitted-message');
-            if (successMessage) {
-              (successMessage as HTMLElement).style.display = 'none';
-            }
+            // Keep form visible and hide success message
+            setTimeout(() => {
+              const form = document.querySelector('.hs-form');
+              const successMessage = document.querySelector('.submitted-message');
+
+              if (form) {
+                (form as HTMLElement).style.display = 'block';
+              }
+              if (successMessage) {
+                (successMessage as HTMLElement).style.display = 'none';
+              }
+            }, 100);
           }
         });
       }
