@@ -18,6 +18,42 @@ export default function HubSpotForm({ locale }: { locale: string }) {
 
     try {
       // Submit to HubSpot Forms API
+      const payload = {
+        fields: [
+          {
+            objectTypeId: "0-1",
+            name: 'email',
+            value: formData.get('email'),
+          },
+          {
+            objectTypeId: "0-1",
+            name: 'firstname',
+            value: formData.get('name'),
+          },
+          {
+            objectTypeId: "0-1",
+            name: 'phone',
+            value: formData.get('phone') || '',
+          },
+          {
+            objectTypeId: "0-1",
+            name: 'company',
+            value: formData.get('company') || '',
+          },
+          {
+            objectTypeId: "0-1",
+            name: 'message',
+            value: formData.get('message'),
+          },
+        ],
+        context: {
+          pageUri: window.location.href,
+          pageName: document.title,
+        },
+      };
+
+      console.log('Submitting to HubSpot:', payload);
+
       const response = await fetch(
         `https://api.hsforms.com/submissions/v3/integration/submit/244622464/2f8dc52a-84bc-44bf-913d-8e713c553b34`,
         {
@@ -25,36 +61,12 @@ export default function HubSpotForm({ locale }: { locale: string }) {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({
-            fields: [
-              {
-                name: 'firstname',
-                value: formData.get('name'),
-              },
-              {
-                name: 'email',
-                value: formData.get('email'),
-              },
-              {
-                name: 'phone',
-                value: formData.get('phone') || '',
-              },
-              {
-                name: 'company',
-                value: formData.get('company') || '',
-              },
-              {
-                name: 'message',
-                value: formData.get('message'),
-              },
-            ],
-            context: {
-              pageUri: window.location.href,
-              pageName: document.title,
-            },
-          }),
+          body: JSON.stringify(payload),
         }
       );
+
+      const responseData = await response.json();
+      console.log('HubSpot response:', responseData);
 
       if (response.ok) {
         setStatus('success');
@@ -62,6 +74,7 @@ export default function HubSpotForm({ locale }: { locale: string }) {
         // Reset status after 5 seconds
         setTimeout(() => setStatus('idle'), 5000);
       } else {
+        console.error('HubSpot error:', responseData);
         setStatus('error');
       }
     } catch (error) {
